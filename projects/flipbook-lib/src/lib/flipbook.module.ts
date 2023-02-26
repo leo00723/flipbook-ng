@@ -9,26 +9,15 @@ import { HammerModule } from '@angular/platform-browser';
 import 'hammerjs';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    HammerModule,
-  ],
-  declarations: [
-    BookComponent,
-    PageComponent,
-    ReversePipe,
-  ],
-  exports: [
-    BookComponent,
-  ]
+  imports: [CommonModule, HammerModule],
+  declarations: [BookComponent, PageComponent, ReversePipe],
+  exports: [BookComponent],
 })
 export class FlipBookModule {
   static forChild(): ModuleWithProviders<FlipBookModule> {
     return {
       ngModule: FlipBookModule,
-      providers: [
-        FlipbookService,
-      ]
+      providers: [FlipbookService],
     };
   }
 }

@@ -1,13 +1,16 @@
 import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
-import { Book, FlipbookService, PageType } from '@labsforge/pageflip';
+import {
+  Book,
+  FlipbookService,
+  PageType,
+} from '../../../flipbook-lib/src/public-api';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-
   get demoBook() {
     return this.flipService.book;
   }
@@ -15,11 +18,7 @@ export class AppComponent implements OnInit {
   startAt = 0;
   currentPage = 1;
 
-  constructor(
-    private elr: ElementRef,
-    private flipService: FlipbookService,
-  ) {
-  }
+  constructor(private elr: ElementRef, private flipService: FlipbookService) {}
 
   ngOnInit() {
     this.flipService.book = {
@@ -32,17 +31,19 @@ export class AppComponent implements OnInit {
         },
         back: {
           imageUrl: 'assets/demo/02-left.png',
-        }
+        },
       },
       pages: [
-        { // start guard section
+        {
+          // start guard section
           imageUrl: 'assets/demo/guard.jpg',
           backgroundColor: '#41473A', // don't use if want to see front-cover inverted image
         },
         {
           imageUrl: 'assets/demo/guard.jpg',
         }, // end guard section
-        { // start transparent-sheet section
+        {
+          // start transparent-sheet section
           imageUrl: 'assets/demo/blank.jpg',
         },
         {
@@ -80,7 +81,8 @@ export class AppComponent implements OnInit {
         {
           imageUrl: 'assets/demo/06-right.png',
         },
-        { // start guard section
+        {
+          // start guard section
           imageUrl: 'assets/demo/guard.jpg',
         },
         {
@@ -91,34 +93,24 @@ export class AppComponent implements OnInit {
       pageWidth: 585,
       pageHeight: 780,
       startPageType: PageType.Double,
-      endPageType: PageType.Double
+      endPageType: PageType.Double,
     } as Book;
-  }
-
-  onPrev() {
-    this.flipService.prev.next();
-  }
-
-  onPlay() {
-    this.flipService.play.next();
-  }
-
-  onPause() {
-    this.flipService.pause.next();
-  }
-
-  onNext() {
-    this.flipService.next.next();
   }
 
   @HostListener('window:resize')
   onWindowResize() {
-    if (!this.flipService.book) { return; }
+    if (!this.flipService.book) {
+      return;
+    }
 
-    const boundsWidth = this.elr.nativeElement.getBoundingClientRect().width * .8;
-    const boundsHeight = this.elr.nativeElement.getBoundingClientRect().height * .6;
+    const boundsWidth =
+      this.elr.nativeElement.getBoundingClientRect().width * 0.8;
+    const boundsHeight =
+      this.elr.nativeElement.getBoundingClientRect().height * 0.6;
 
-    this.flipService.book.zoom = Math.min(boundsWidth / this.flipService.book.width, boundsHeight / this.flipService.book.height);
+    this.flipService.book.zoom = Math.min(
+      boundsWidth / this.flipService.book.width,
+      boundsHeight / this.flipService.book.height
+    );
   }
-
 }
